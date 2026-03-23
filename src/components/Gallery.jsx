@@ -1,15 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Building2, Home, TreePine, Hotel, Layers, X, ChevronLeft, ChevronRight } from 'lucide-react'
-
-const categories = [
-  { id: 'todos', label: 'Todos', icon: Layers },
-  { id: 'apartamentos', label: 'Apartamentos', icon: Building2 },
-  { id: 'casas', label: 'Casas', icon: Home },
-  { id: 'pousadas', label: 'Pousadas', icon: Hotel },
-  { id: 'sitios', label: 'Sítios', icon: TreePine },
-  { id: 'outros', label: 'Outros', icon: Camera },
-]
+import { Camera, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const projects = [
   // — Página 1: mix de categorias para variedade visual —
@@ -119,16 +110,13 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
 }
 
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState('todos')
   const [currentPage, setCurrentPage] = useState(0)
   const [lightbox, setLightbox] = useState({ open: false, index: 0 })
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef(null)
   const perPage = useItemsPerPage()
 
-  const filtered = activeCategory === 'todos'
-    ? projects
-    : projects.filter((p) => p.category === activeCategory)
+  const filtered = projects
 
   const totalPages = Math.ceil(filtered.length / perPage)
   const currentItems = filtered.slice(currentPage * perPage, (currentPage + 1) * perPage)
@@ -141,10 +129,10 @@ export default function Gallery() {
     setCurrentPage((p) => (p - 1 + totalPages) % totalPages)
   }, [totalPages])
 
-  // Reset page when category or perPage changes
+  // Reset page when perPage changes
   useEffect(() => {
     setCurrentPage(0)
-  }, [activeCategory, perPage])
+  }, [perPage])
 
   // Auto-advance every 5s
   useEffect(() => {
@@ -187,41 +175,6 @@ export default function Gallery() {
             <span className="font-medium text-brand">realizados</span>
           </motion.h2>
         </div>
-
-        {/* Category filter tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-2 mb-12"
-        >
-          {categories.map((cat) => {
-            const Icon = cat.icon
-            const isActive = activeCategory === cat.id
-            const count = cat.id === 'todos'
-              ? projects.length
-              : projects.filter((p) => p.category === cat.id).length
-
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs uppercase tracking-[0.15em] border transition-all duration-300 ${
-                  isActive
-                    ? 'border-brand/30 bg-brand/10 text-brand'
-                    : 'border-glass-border bg-glass text-text-muted hover:text-text-primary hover:border-glass-border-hover'
-                }`}
-              >
-                <Icon className="w-3 h-3" strokeWidth={1.5} />
-                {cat.label}
-                <span className={`text-[10px] ${isActive ? 'text-brand/60' : 'text-text-muted/50'}`}>
-                  {count}
-                </span>
-              </button>
-            )
-          })}
-        </motion.div>
 
         {/* Carousel */}
         <div
@@ -303,7 +256,7 @@ export default function Gallery() {
           )}
 
           <p className="text-text-muted text-xs tracking-[0.15em] uppercase">
-            {filtered.length} {filtered.length === 1 ? 'projeto' : 'projetos'} — Gravataí e região
+            Gravataí e região
           </p>
         </div>
       </div>
