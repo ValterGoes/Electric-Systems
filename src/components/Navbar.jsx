@@ -16,11 +16,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-void/60 backdrop-blur-2xl border-b border-glass-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-void/80 md:bg-void/60 backdrop-blur-2xl border-b border-glass-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-2.5">
           <img src="/images/logo.png" alt="Electric Systems" className="h-8 w-auto" />
-          <span className="text-text-primary font-extralight text-lg tracking-wide hidden sm:inline">
+          <span className="text-text-primary font-extralight text-lg tracking-wide">
             Electric <span className="font-medium">Systems</span>
           </span>
         </a>
@@ -60,14 +60,24 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-void/95 backdrop-blur-2xl border-b border-glass-border overflow-hidden"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="md:hidden bg-void border-b border-glass-border overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setMobileOpen(false)
+                    const target = document.querySelector(link.href)
+                    if (target) {
+                      setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }, 350)
+                    }
+                  }}
                   className="text-xs uppercase tracking-[0.2em] text-text-muted hover:text-text-primary transition-colors"
                 >
                   {link.label}
