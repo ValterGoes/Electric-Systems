@@ -133,7 +133,7 @@ function ServiceLightbox({ service, currentIndex, onClose, onPrev, onNext }) {
                     : 'border-white/10 opacity-50 hover:opacity-80'
                 }`}
               >
-                <img src={img} alt="" className="w-full h-full object-cover" />
+                <img src={img} alt={`${service.title} — foto ${i + 1}`} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
@@ -187,7 +187,7 @@ function ServiceCard({ service, index, onOpenGallery }) {
                 onClick={() => onOpenGallery(service, i + 1)}
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg border border-white/10 overflow-hidden opacity-70 hover:opacity-100 hover:border-brand/30 transition-all duration-500 cursor-pointer"
               >
-                <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
+                <img src={img} alt={`${service.title} — exemplo ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
               </button>
             ))}
           </div>
