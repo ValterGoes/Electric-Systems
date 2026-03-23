@@ -3,7 +3,7 @@ import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react'
 const WHATSAPP_URL = 'https://wa.me/5551991866713?text=Olá! Gostaria de um orçamento.'
 const INSTAGRAM_URL = 'https://www.instagram.com/electricsystems1/'
 const FACEBOOK_URL = 'https://www.facebook.com/ElectricSystems1/'
-const EMAIL = 'financeiroelectricsystems@hotmail.com'
+const EMAIL = 'financeiroelectric@hotmail.com'
 
 export default function Footer() {
   return (
