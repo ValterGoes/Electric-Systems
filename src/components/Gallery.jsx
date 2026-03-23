@@ -1,84 +1,70 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Camera, Building2, Home, TreePine, Hotel, Layers, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const categories = [
-  {
-    id: 'todos',
-    label: 'Todos',
-    icon: Layers,
-  },
-  {
-    id: 'apartamentos',
-    label: 'Apartamentos',
-    icon: Building2,
-  },
-  {
-    id: 'casas',
-    label: 'Casas',
-    icon: Home,
-  },
-  {
-    id: 'pousadas',
-    label: 'Pousadas',
-    icon: Hotel,
-  },
-  {
-    id: 'sitios',
-    label: 'Sítios',
-    icon: TreePine,
-  },
-  {
-    id: 'outros',
-    label: 'Outros',
-    icon: Camera,
-  },
+  { id: 'todos', label: 'Todos', icon: Layers },
+  { id: 'apartamentos', label: 'Apartamentos', icon: Building2 },
+  { id: 'casas', label: 'Casas', icon: Home },
+  { id: 'pousadas', label: 'Pousadas', icon: Hotel },
+  { id: 'sitios', label: 'Sítios', icon: TreePine },
+  { id: 'outros', label: 'Outros', icon: Camera },
 ]
 
 const projects = [
-  // Apartamentos
-  { src: '/images/ap1.webp', alt: 'Projeto elétrico apartamento — instalação completa', category: 'apartamentos' },
-  { src: '/images/ap2.webp', alt: 'Projeto elétrico apartamento — quadro e fiação', category: 'apartamentos' },
-  { src: '/images/ap3.webp', alt: 'Projeto elétrico apartamento — acabamento', category: 'apartamentos' },
-  { src: '/images/ap4.webp', alt: 'Projeto elétrico apartamento — iluminação', category: 'apartamentos' },
-
-  // Casas
-  { src: '/images/casa1.webp', alt: 'Projeto elétrico residencial — casa completa', category: 'casas' },
-  { src: '/images/casa2.webp', alt: 'Projeto elétrico residencial — instalação', category: 'casas' },
-  { src: '/images/casa3.webp', alt: 'Projeto elétrico residencial — acabamento', category: 'casas' },
-  { src: '/images/casa4.webp', alt: 'Projeto elétrico residencial — finalização', category: 'casas' },
-
-  // Pousadas
-  { src: '/images/pousada1.webp', alt: 'Projeto elétrico pousada — instalação geral', category: 'pousadas' },
-  { src: '/images/pousada2.webp', alt: 'Projeto elétrico pousada — iluminação', category: 'pousadas' },
-  { src: '/images/pousada3.webp', alt: 'Projeto elétrico pousada — acabamento', category: 'pousadas' },
-
-  // Sítios
-  { src: '/images/sitio1.webp', alt: 'Projeto elétrico sítio — instalação rural', category: 'sitios' },
-  { src: '/images/sitio2.webp', alt: 'Projeto elétrico sítio — finalização', category: 'sitios' },
-
-  // Outros
+  // — Página 1: mix de categorias para variedade visual —
+  { src: '/images/ap1.webp', alt: 'Apartamento — instalação completa', category: 'apartamentos' },
+  { src: '/images/casa1.webp', alt: 'Residência — projeto completo', category: 'casas' },
+  { src: '/images/pousada1.webp', alt: 'Pousada — instalação geral', category: 'pousadas' },
+  { src: '/images/outros1.webp', alt: 'Serviço elétrico profissional', category: 'outros' },
+  { src: '/images/ap2.webp', alt: 'Apartamento — quadro e fiação', category: 'apartamentos' },
+  { src: '/images/casa2.webp', alt: 'Residência — instalação elétrica', category: 'casas' },
+  { src: '/images/pousada2.webp', alt: 'Pousada — iluminação', category: 'pousadas' },
   { src: '/images/outros2.webp', alt: 'Projeto elétrico comercial', category: 'outros' },
+  { src: '/images/ap3.webp', alt: 'Apartamento — acabamento', category: 'apartamentos' },
+  { src: '/images/casa3.webp', alt: 'Residência — acabamento', category: 'casas' },
+  { src: '/images/sitio1.webp', alt: 'Sítio — instalação rural', category: 'sitios' },
   { src: '/images/outros3.webp', alt: 'Instalação elétrica especial', category: 'outros' },
+
+  // — Página 2 —
+  { src: '/images/ap4.webp', alt: 'Apartamento — iluminação', category: 'apartamentos' },
+  { src: '/images/casa4.webp', alt: 'Residência — finalização', category: 'casas' },
+  { src: '/images/pousada3.webp', alt: 'Pousada — acabamento', category: 'pousadas' },
   { src: '/images/outros4.webp', alt: 'Projeto elétrico industrial', category: 'outros' },
+  { src: '/images/sitio2.webp', alt: 'Sítio — finalização', category: 'sitios' },
   { src: '/images/outros5.webp', alt: 'Manutenção elétrica', category: 'outros' },
   { src: '/images/outros6.webp', alt: 'Serviço elétrico especializado', category: 'outros' },
   { src: '/images/outros7.webp', alt: 'Instalação customizada', category: 'outros' },
   { src: '/images/outros8.webp', alt: 'Projeto elétrico sob medida', category: 'outros' },
   { src: '/images/outros9.webp', alt: 'Trabalho elétrico profissional', category: 'outros' },
+  { src: '/images/outras10.webp', alt: 'Projeto elétrico concluído', category: 'outros' },
+  { src: '/images/outras11.webp', alt: 'Instalação profissional', category: 'outros' },
+
+  // — Página 3 —
+  { src: '/images/outras12.webp', alt: 'Serviço especializado', category: 'outros' },
   { src: '/images/3.webp', alt: 'Projeto finalizado', category: 'outros' },
   { src: '/images/4.webp', alt: 'Serviço concluído', category: 'outros' },
   { src: '/images/5.webp', alt: 'Instalação profissional', category: 'outros' },
   { src: '/images/6.webp', alt: 'Trabalho especializado', category: 'outros' },
 ]
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.05, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
+// Items per page: 3 rows × 4 cols on desktop, 2 rows × 2 cols on mobile
+function useItemsPerPage() {
+  const [perPage, setPerPage] = useState(12)
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth
+      if (w < 640) setPerPage(4)       // 2×2
+      else if (w < 1024) setPerPage(6) // 2×3
+      else setPerPage(12)              // 3×4
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  return perPage
 }
 
 function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
@@ -134,16 +120,46 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('todos')
+  const [currentPage, setCurrentPage] = useState(0)
   const [lightbox, setLightbox] = useState({ open: false, index: 0 })
+  const [isPaused, setIsPaused] = useState(false)
+  const intervalRef = useRef(null)
+  const perPage = useItemsPerPage()
 
   const filtered = activeCategory === 'todos'
     ? projects
     : projects.filter((p) => p.category === activeCategory)
 
-  const openLightbox = (index) => setLightbox({ open: true, index })
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const currentItems = filtered.slice(currentPage * perPage, (currentPage + 1) * perPage)
+
+  const goNext = useCallback(() => {
+    setCurrentPage((p) => (p + 1) % totalPages)
+  }, [totalPages])
+
+  const goPrev = useCallback(() => {
+    setCurrentPage((p) => (p - 1 + totalPages) % totalPages)
+  }, [totalPages])
+
+  // Reset page when category or perPage changes
+  useEffect(() => {
+    setCurrentPage(0)
+  }, [activeCategory, perPage])
+
+  // Auto-advance every 5s
+  useEffect(() => {
+    if (totalPages <= 1 || isPaused || lightbox.open) return
+    intervalRef.current = setInterval(goNext, 5000)
+    return () => clearInterval(intervalRef.current)
+  }, [totalPages, isPaused, lightbox.open, goNext])
+
+  const openLightbox = (pageIndex) => {
+    const globalIndex = currentPage * perPage + pageIndex
+    setLightbox({ open: true, index: globalIndex })
+  }
   const closeLightbox = () => setLightbox({ open: false, index: 0 })
-  const prevImage = () => setLightbox((s) => ({ ...s, index: (s.index - 1 + filtered.length) % filtered.length }))
-  const nextImage = () => setLightbox((s) => ({ ...s, index: (s.index + 1) % filtered.length }))
+  const prevLBImage = () => setLightbox((s) => ({ ...s, index: (s.index - 1 + filtered.length) % filtered.length }))
+  const nextLBImage = () => setLightbox((s) => ({ ...s, index: (s.index + 1) % filtered.length }))
 
   return (
     <section id="portfolio" className="py-24 px-6">
@@ -207,47 +223,89 @@ export default function Gallery() {
           })}
         </motion.div>
 
-        {/* Photo grid */}
-        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((photo, i) => (
-              <motion.div
-                key={photo.src}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-                variants={fadeUp}
-                layout
-                onClick={() => openLightbox(i)}
-                className="group relative aspect-[4/3] rounded-2xl border border-glass-border overflow-hidden cursor-pointer"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-10 h-10 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                    <Camera className="w-4 h-4 text-white" strokeWidth={1.5} />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Project count */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mt-10 text-text-muted text-xs tracking-[0.15em] uppercase"
+        {/* Carousel */}
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
-          {filtered.length} {filtered.length === 1 ? 'projeto' : 'projetos'} — Gravataí e região
-        </motion.p>
+          {/* Navigation arrows */}
+          {totalPages > 1 && (
+            <>
+              <button
+                onClick={goPrev}
+                className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-glass-border bg-void/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-text-primary hover:border-brand/30 transition-all duration-300"
+              >
+                <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
+              </button>
+              <button
+                onClick={goNext}
+                className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-glass-border bg-void/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-text-primary hover:border-brand/30 transition-all duration-300"
+              >
+                <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
+              </button>
+            </>
+          )}
+
+          {/* Grid 3×4 (desktop) / 2×3 (tablet) / 2×2 (mobile) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${activeCategory}-${currentPage}`}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"
+            >
+              {currentItems.map((photo, i) => (
+                <motion.div
+                  key={photo.src}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.03 }}
+                  onClick={() => openLightbox(i)}
+                  className="group relative aspect-[4/3] rounded-2xl border border-glass-border overflow-hidden cursor-pointer"
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-10 h-10 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                      <Camera className="w-4 h-4 text-white" strokeWidth={1.5} />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Pagination dots + count */}
+        <div className="flex flex-col items-center gap-4 mt-8">
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === currentPage
+                      ? 'w-8 h-2 bg-brand'
+                      : 'w-2 h-2 bg-glass-border hover:bg-text-muted/30'
+                  }`}
+                  aria-label={`Página ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          <p className="text-text-muted text-xs tracking-[0.15em] uppercase">
+            {filtered.length} {filtered.length === 1 ? 'projeto' : 'projetos'} — Gravataí e região
+          </p>
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -257,8 +315,8 @@ export default function Gallery() {
             images={filtered}
             currentIndex={lightbox.index}
             onClose={closeLightbox}
-            onPrev={prevImage}
-            onNext={nextImage}
+            onPrev={prevLBImage}
+            onNext={nextLBImage}
           />
         )}
       </AnimatePresence>
