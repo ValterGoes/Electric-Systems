@@ -45,7 +45,7 @@ export default function WhatsAppFloat() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.25 }}
-                className="relative bg-void border border-glass-border rounded-xl px-4 py-3 shadow-2xl max-w-[200px] mb-2"
+                className="relative bg-void border border-glass-border rounded-xl px-4 py-3 shadow-2xl max-w-[240px] mb-2"
               >
                 <button
                   onClick={() => setTooltipDismissed(true)}
@@ -54,8 +54,8 @@ export default function WhatsAppFloat() {
                   <X className="w-3 h-3" strokeWidth={2} />
                 </button>
                 <p className="text-xs text-text-secondary font-light leading-relaxed">
-                  Precisa de um orçamento?{' '}
-                  <span className="text-brand font-medium">Fale agora</span> com o Mário César!
+                  Precisa de um orçamento?
+                  <br /><span className="text-brand font-medium">Fale agora</span> com o <span className="whitespace-nowrap">Mário César!</span>
                 </p>
                 {/* Arrow pointing right */}
                 <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-void border-r border-b border-glass-border rotate-[-45deg]" />
