@@ -4,34 +4,57 @@ import { Plug, Wrench, Lightbulb, LayoutGrid, ArrowUpRight, X, ChevronLeft, Chev
 
 const services = [
   {
-    title: 'Instalações Elétricas',
-    description: 'Instalação completa de pontos de energia, tomadas, interruptores e circuitos dedicados com total segurança e acabamento impecável.',
+    title: "Instalações Elétricas em Gravataí", // Adicionado localidade no título interno
+    description:
+      "Instalação completa de pontos de energia, tomadas e interruptores. Realizamos circuitos dedicados para ar-condicionado e chuveiros com total segurança técnica.",
     icon: Plug,
-    images: ['/images/tomadas.webp', '/images/tomadas2.webp', '/images/tomadas3.webp', '/images/tomadas4.webp'],
-    span: 'lg:col-span-2 lg:row-span-2',
+    images: [
+      "/images/tomadas.webp",
+      "/images/tomadas2.webp",
+      "/images/tomadas3.webp",
+      "/images/tomadas4.webp",
+    ],
+    span: "lg:col-span-2 lg:row-span-2",
   },
   {
-    title: 'Manutenção Preventiva',
-    description: 'Inspeção periódica para prevenir falhas e garantir segurança contínua.',
+    title: "Manutenção e Reparos",
+    description:
+      "Manutenção elétrica residencial e comercial para prevenir curtos-circuitos, quedas de energia e garantir a segurança da sua fiação.",
     icon: Wrench,
-    images: ['/images/manutencao.webp', '/images/manutencao2.webp', '/images/manutencao3.webp', '/images/manutencao4.webp'],
-    span: '',
+    images: [
+      "/images/manutencao.webp",
+      "/images/manutencao2.webp",
+      "/images/manutencao3.webp",
+      "/images/manutencao4.webp",
+    ],
+    span: "",
   },
   {
-    title: 'Iluminação LED',
-    description: 'Projetos de iluminação econômica e moderna para todos os ambientes.',
+    title: "Iluminação LED e Projetos",
+    description:
+      "Projetos de iluminação LED econômica para ambientes internos e externos, garantindo modernidade e redução no consumo de energia.",
     icon: Lightbulb,
-    images: ['/images/led1.webp', '/images/led2.webp', '/images/led3.webp', '/images/led4.webp'],
-    span: '',
+    images: [
+      "/images/led1.webp",
+      "/images/led2.webp",
+      "/images/led3.webp",
+      "/images/led4.webp",
+    ],
+    span: "",
   },
   {
-    title: 'Quadros Elétricos',
-    description: 'Montagem e adequação de quadros de distribuição conforme normas técnicas vigentes.',
+    title: "Quadros Elétricos e Disjuntores",
+    description:
+      "Montagem, organização e adequação de quadros de distribuição e troca de disjuntores conforme as normas NBR 5410.",
     icon: LayoutGrid,
-    images: ['/images/quadro.webp', '/images/quadro2.webp', '/images/quadro3.webp'],
-    span: 'lg:col-span-2',
+    images: [
+      "/images/quadro.webp",
+      "/images/quadro2.webp",
+      "/images/quadro3.webp",
+    ],
+    span: "lg:col-span-2",
   },
-]
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
