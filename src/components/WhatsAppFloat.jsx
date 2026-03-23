@@ -55,7 +55,7 @@ export default function WhatsAppFloat() {
                 </button>
                 <p className="text-xs text-text-secondary font-light leading-relaxed">
                   Precisa de um orçamento?{' '}
-                  <span className="text-brand font-medium">Fale agora</span> com o Mário!
+                  <span className="text-brand font-medium">Fale agora</span> com o Mário César!
                 </p>
                 {/* Arrow pointing right */}
                 <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-void border-r border-b border-glass-border rotate-[-45deg]" />
