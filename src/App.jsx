@@ -5,6 +5,7 @@ import Gallery from './components/Gallery'
 import SocialProof from './components/SocialProof'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
+import WhatsAppFloat from './components/WhatsAppFloat'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <SocialProof />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </div>
   )
 }
