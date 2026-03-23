@@ -11,10 +11,8 @@ export default function WhatsAppFloat() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroEl = document.getElementById('hero')
-      if (!heroEl) return
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight
-      setVisible(window.scrollY > heroBottom * 0.5)
+      // Show after scrolling 300px — works reliably on all screen sizes
+      setVisible(window.scrollY > 300)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
