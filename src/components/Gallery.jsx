@@ -102,9 +102,6 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
         onClick={(e) => e.stopPropagation()}
       />
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest uppercase">
-        {currentIndex + 1} / {images.length}
-      </div>
     </motion.div>
   )
 }
@@ -203,7 +200,7 @@ export default function Gallery() {
           {/* Grid 3×4 (desktop) / 2×3 (tablet) / 2×2 (mobile) */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${activeCategory}-${currentPage}`}
+              key={`page-${currentPage}`}
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }}

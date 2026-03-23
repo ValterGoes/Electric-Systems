@@ -141,8 +141,6 @@ function ServiceLightbox({ service, currentIndex, onClose, onPrev, onNext }) {
 
         <div className="flex items-center gap-3 text-white/40 text-xs tracking-widest uppercase">
           <span className="text-brand font-medium">{service.title}</span>
-          <span className="w-px h-3 bg-white/10" />
-          <span>{currentIndex + 1} / {service.images.length}</span>
         </div>
       </div>
     </motion.div>
