@@ -16,16 +16,17 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-void/80 md:bg-void/60 backdrop-blur-2xl border-b border-glass-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-void/80 lg:bg-void/60 backdrop-blur-2xl border-b border-glass-border">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-2.5">
-          <img src="/images/logo.png" alt="Electric Systems" className="h-8 w-auto" />
+          <img src="/images/logo.png" alt="Electric Systems — logotipo" className="h-8 w-auto" />
           <span className="text-text-primary font-extralight text-lg tracking-wide">
             Electric <span className="font-medium">Systems</span>
           </span>
         </a>
 
-        <div className="hidden md:flex items-center gap-10 lg:gap-12">
+        {/* Desktop nav links — only lg+ (1024px) */}
+        <div className="hidden lg:flex items-center gap-10 xl:gap-12">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -48,15 +49,17 @@ export default function Navbar() {
           </a>
         </div>
 
+        {/* Mobile hamburger — only below lg */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-text-muted"
+          className="lg:hidden p-2 text-text-muted cursor-pointer"
           aria-label="Menu"
         >
           {mobileOpen ? <X className="w-5 h-5" strokeWidth={1.5} /> : <Menu className="w-5 h-5" strokeWidth={1.5} />}
         </button>
       </div>
 
+      {/* Mobile/Tablet menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -64,7 +67,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden bg-void border-b border-glass-border overflow-hidden"
+            className="lg:hidden bg-void border-b border-glass-border overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-5">
               {navLinks.map((link) => (
