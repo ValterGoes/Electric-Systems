@@ -14,7 +14,7 @@ const services = [
       "/images/tomadas3.webp",
       "/images/tomadas4.webp",
     ],
-    span: "lg:col-span-2 lg:row-span-2",
+    span: "large",
   },
   {
     title: "Manutenção e Reparos",
@@ -27,7 +27,7 @@ const services = [
       "/images/manutencao3.webp",
       "/images/manutencao4.webp",
     ],
-    span: "",
+    span: "small",
   },
   {
     title: "Iluminação LED e Projetos",
@@ -40,19 +40,19 @@ const services = [
       "/images/led3.webp",
       "/images/led4.webp",
     ],
-    span: "",
+    span: "small",
   },
   {
     title: "Quadros Elétricos e Disjuntores",
     description:
-      "Montagem, organização e adequação de quadros de distribuição e troca de disjuntores conforme as normas NBR 5410.",
+      "Montagem, organização e adequação de quadros de distribuição e troca de disjuntores.",
     icon: LayoutGrid,
     images: [
       "/images/quadro.webp",
       "/images/quadro2.webp",
       "/images/quadro3.webp",
     ],
-    span: "lg:col-span-2",
+    span: "wide",
   },
 ];
 
@@ -148,10 +148,10 @@ function ServiceLightbox({ service, currentIndex, onClose, onPrev, onNext }) {
 }
 
 /* ── Service Card ── */
-function ServiceCard({ service, index, onOpenGallery }) {
+function ServiceCard({ service, index, onOpenGallery, className = '' }) {
   const mainImage = service.images[0]
   const extraImages = service.images.slice(1, 4)
-  const isLarge = service.span.includes('row-span-2')
+  const isLarge = service.span === 'large'
   const hasMultiple = service.images.length > 1
 
   return (
@@ -161,7 +161,7 @@ function ServiceCard({ service, index, onOpenGallery }) {
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
       variants={fadeUp}
-      className={`group relative rounded-2xl border border-glass-border overflow-hidden transition-all duration-500 hover:border-glass-border-hover ${service.span}`}
+      className={`group relative rounded-2xl border border-glass-border overflow-hidden transition-all duration-500 hover:border-glass-border-hover min-h-[240px] ${className}`}
     >
       {/* Background image */}
       <div className="absolute inset-0">
@@ -176,20 +176,6 @@ function ServiceCard({ service, index, onOpenGallery }) {
 
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end p-8">
-        {/* Mini gallery thumbnails for large cards */}
-        {isLarge && extraImages.length > 0 && (
-          <div className="flex gap-2 mb-6">
-            {extraImages.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => onOpenGallery(service, i + 1)}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg border border-white/10 overflow-hidden opacity-70 hover:opacity-100 hover:border-brand/30 transition-all duration-500 cursor-pointer"
-              >
-                <img src={img} alt={`${service.title} — exemplo ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
-              </button>
-            ))}
-          </div>
-        )}
 
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -278,15 +264,43 @@ export default function BentoGrid() {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 auto-rows-[240px] gap-3">
-          {services.map((service, i) => (
+        {/* Bento: Left (Instalações + Quadros) + Right (Manutenção + LED) full height */}
+        <div className="flex flex-col lg:flex-row gap-3">
+          {/* Left — Instalações (large) + Quadros (small) */}
+          <div className="lg:w-2/3 flex flex-col gap-3">
+            <div className="lg:min-h-[480px]">
+              <ServiceCard
+                service={services[0]}
+                index={0}
+                onOpenGallery={openGallery}
+                className="h-full"
+              />
+            </div>
             <ServiceCard
-              key={service.title}
-              service={service}
-              index={i}
+              service={services[3]}
+              index={3}
               onOpenGallery={openGallery}
             />
-          ))}
+          </div>
+          {/* Right — two cards filling the entire left column height */}
+          <div className="lg:w-1/3 flex flex-col gap-3">
+            <div className="flex-1">
+              <ServiceCard
+                service={services[1]}
+                index={1}
+                onOpenGallery={openGallery}
+                className="h-full"
+              />
+            </div>
+            <div className="flex-1">
+              <ServiceCard
+                service={services[2]}
+                index={2}
+                onOpenGallery={openGallery}
+                className="h-full"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
