@@ -1,3 +1,9 @@
+🚀 Projeto em Produção
+Esta landing page foi desenvolvida sob encomenda para a empresa **Electric Systems** e está atualmente ativa.
+
+🔗 Link oficial: www.electric-systems.com.br
+
+
 # Electric Systems - Mário César
 
 Landing page profissional para a empresa de serviços elétricos **Electric Systems**, localizada no Rio Grande do Sul, Brasil.
