@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { MapPin, Phone, Mail, Instagram, Facebook, HelpCircle, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import devLogo from '../assets/logo-valtergoes.svg'
 
 const WHATSAPP_URL = 'https://wa.me/5551991866713?text=Olá! Gostaria de um orçamento.'
 const INSTAGRAM_URL = 'https://www.instagram.com/electricsystems1/'
@@ -137,7 +138,7 @@ export default function Footer() {
     <>
       <footer className="border-t border-glass-border py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
             <div>
               <div className="flex items-center gap-2.5 mb-4">
                 <img src="/images/logo.png" alt="Electric Systems — logotipo" className="h-7 w-auto" />
@@ -217,19 +218,37 @@ export default function Footer() {
                 <li>Quadros Elétricos</li>
               </ul>
             </div>
+
+            <div>
+              <h4 className="text-xs uppercase tracking-[0.2em] text-text-muted mb-5">
+                <span className="flex items-center gap-2">
+                  <HelpCircle className="w-3.5 h-3.5 text-brand" strokeWidth={1.5} />
+                  FAQ
+                </span>
+              </h4>
+              <button
+                onClick={() => setFaqOpen(true)}
+                className="text-sm font-light text-text-secondary tracking-wide hover:text-brand transition-colors duration-300 cursor-pointer text-left"
+              >
+                Perguntas Frequentes
+              </button>
+            </div>
           </div>
 
           <div className="mt-12 pt-8 border-t border-glass-border flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-text-muted tracking-wider">
               © {new Date().getFullYear()} Electric Systems — Mário César. Todos os direitos reservados.
             </p>
-            <button
-              onClick={() => setFaqOpen(true)}
-              className="flex items-center gap-2 text-xs text-text-muted hover:text-brand tracking-wider uppercase transition-colors duration-300 cursor-pointer"
+            <a
+              href="https://valtergoes.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs text-text-muted hover:text-brand tracking-wider transition-colors duration-300"
+              title="Desenvolvido por Valter Goes"
             >
-              <HelpCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Perguntas Frequentes
-            </button>
+              <span>Desenvolvido por</span>
+              <img src={devLogo} alt="Valter Goes" className="h-6 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300" />
+            </a>
           </div>
         </div>
       </footer>
